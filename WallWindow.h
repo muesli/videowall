@@ -5,7 +5,6 @@
 #ifndef WALLWINDOW_H
 #define WALLWINDOW_H
 
-#include <QMainWindow>
 #include <QFileInfoList>
 #include <QGraphicsScene>
 #include <QGraphicsView>
