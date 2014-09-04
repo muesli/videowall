@@ -26,3 +26,11 @@ Makefile*
 # QtCreator
 
 *.autosave
+
+# Backups
+
+*~
+
+# Binaries
+
+videowall
