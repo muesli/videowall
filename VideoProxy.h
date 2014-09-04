@@ -20,7 +20,6 @@ public:
     VideoProxy( QGraphicsItem* parent = 0, Qt::WindowFlags wFlags = 0 );
 
     QRectF boundingRect() const;
-    void paintWindowFrame( QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget );
 
 public slots:
     void loadMedia( const QFileInfo& info );

@@ -38,19 +38,11 @@ VideoProxy::boundingRect() const
 
 
 void
-VideoProxy::paintWindowFrame( QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget )
-{
-    QGraphicsProxyWidget::paintWindowFrame( painter, option, widget );
-}
-
-
-void
 VideoProxy::hoverEnterEvent( QGraphicsSceneHoverEvent* event )
 {
     qDebug() << Q_FUNC_INFO << m_media->currentSource();
     QGraphicsProxyWidget::hoverEnterEvent( event );
 
-    m_audio->setMuted( false );
     m_audio->setVolume( 0.9 );
 }
 
@@ -111,6 +103,8 @@ VideoProxy::loadMedia( const QFileInfo& info )
 {
     m_media->setCurrentSource( info.absoluteFilePath() );
     m_media->play();
+
+    m_audio->setVolume( 0.0 );
 }
 
 
