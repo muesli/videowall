@@ -19,7 +19,7 @@ scanPath( const QDir& dir )
     if ( dir.exists() )
     {
         QStringList filter;
-        filter << "*.avi" << "*.mpg" << "*.mpeg" << "*.mov" << "*.mp4" << "*.flv" << "*.mkv";
+        filter << "*.avi" << "*.mpg" << "*.mpeg" << "*.mov" << "*.mp4" << "*.flv" << "*.mkv" << "*.wmv";
 
         qDebug() << "Scanning:" << dir.absolutePath();
         il << dir.entryInfoList( filter, QDir::Files | QDir::NoDotAndDotDot );
