@@ -3,7 +3,7 @@ SOURCES += VideoProxy.cpp WallWindow.cpp
 HEADERS += VideoProxy.h WallWindow.h
 
 RESOURCES += videowall.qrc
-QT += gui phonon opengl
+QT += gui phonon4qt5 opengl
 
 build_all:!build_pass {
     CONFIG -= build_all
