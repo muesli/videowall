@@ -49,7 +49,7 @@ int main( int argc, char* argv[] )
 
     if ( argc > 1 )
     {
-        unsigned int max = 16;
+        unsigned int max = 9;
         if ( argc > 2 )
         {
             bool ok = false;
