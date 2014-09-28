@@ -31,6 +31,7 @@ signals:
     void requestFocus();
     void forward();
     void rewind();
+    void videoFinished();
 
 protected:
     void hoverEnterEvent( QGraphicsSceneHoverEvent* event );

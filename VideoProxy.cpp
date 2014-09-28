@@ -26,6 +26,8 @@ VideoProxy::VideoProxy( QGraphicsItem* parent, Qt::WindowFlags wFlags )
     Phonon::createPath( m_media, m_audio );
     Phonon::createPath( m_media, video );
 
+    connect( m_media, SIGNAL( finished() ), SIGNAL( videoFinished() ) );
+
     setWidget( video );
 }
 
