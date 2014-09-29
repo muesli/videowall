@@ -15,10 +15,11 @@ class WallWindow : public QGraphicsView
 {
     Q_OBJECT
 public:
-    WallWindow();
+    WallWindow( unsigned int maxVideos );
 
 public slots:
-    void loadMedia( const QFileInfoList& files );
+    void setupProxies( unsigned int count );
+    void setMedia( const QFileInfoList& files );
 
 protected:
     void resizeEvent( QResizeEvent* event );
@@ -27,11 +28,14 @@ private slots:
     void onFocusRequested();
     void onFullPlaybackRequested();
 
+    void onVideoFinished();
+
     void layoutItems( bool touchZValue = true );
 
 private:
     QGraphicsScene m_scene;
     QList<VideoProxy*> m_videos;
+    QFileInfoList m_files;
 };
 
 #endif

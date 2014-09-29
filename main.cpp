@@ -43,7 +43,6 @@ int main( int argc, char* argv[] )
     Q_INIT_RESOURCE(videowall);
 
     QApplication app( argc, argv );
-    WallWindow ww;
 
     qsrand( QTime::currentTime().msec() );
 
@@ -58,16 +57,13 @@ int main( int argc, char* argv[] )
                 max = m;
         }
 
-        QFileInfoList selectedFiles;
-        QFileInfoList allFiles = scanPath( QDir( app.arguments().at( 1 ) ) );
-        for ( unsigned int i = 0; i < max && allFiles.count() > 0; i++ )
-        {
-            selectedFiles << allFiles.takeAt( qrand() % allFiles.count() );
-        }
-
-        ww.loadMedia( selectedFiles );
+        WallWindow ww( max );
+        QFileInfoList files = scanPath( QDir( app.arguments().at( 1 ) ) );
+        ww.setMedia( files );
         ww.show();
+
+        return app.exec();
     }
 
-    return app.exec();
+    return 0;
 }

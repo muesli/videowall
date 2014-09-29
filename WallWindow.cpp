@@ -7,7 +7,7 @@
 #include <QtCore/qmath.h>
 
 
-WallWindow::WallWindow()
+WallWindow::WallWindow( unsigned int maxVideos )
     : QGraphicsView()
 {
     setWindowTitle( "VideoWall" );
@@ -19,24 +19,55 @@ WallWindow::WallWindow()
     setRenderHints( QPainter::Antialiasing | QPainter::SmoothPixmapTransform );
     setCacheMode( QGraphicsView::CacheBackground );
     setViewportUpdateMode( QGraphicsView::BoundingRectViewportUpdate );
+
+    setupProxies( maxVideos );
 }
 
 
 void
-WallWindow::loadMedia( const QFileInfoList& files )
+WallWindow::setupProxies( unsigned int count )
 {
-    foreach( const QFileInfo& info, files )
+    for ( int i = 0; i < (int)count; i++ )
     {
         VideoProxy* proxy = new VideoProxy( 0, Qt::Widget );
         connect( proxy, SIGNAL( requestFocus() ), SLOT( onFocusRequested() ) );
         connect( proxy, SIGNAL( requestFullPlayback() ), SLOT( onFullPlaybackRequested() ) );
+        connect( proxy, SIGNAL( rightClicked() ), SLOT( onVideoFinished() ) );
+        connect( proxy, SIGNAL( videoFinished() ), SLOT( onVideoFinished() ) );
 
         proxy->show();
 
         m_scene.addItem( proxy );
         m_videos << proxy;
+    }
+}
 
-        proxy->loadMedia( info );
+
+void
+WallWindow::setMedia( const QFileInfoList& files )
+{
+    m_files = files;
+
+    foreach( VideoProxy* proxy, m_videos )
+    {
+        if ( m_files.count() > 0 )
+        {
+            proxy->loadMedia( m_files.takeAt( qrand() % m_files.count() ) );
+        }
+    }
+}
+
+
+void
+WallWindow::onVideoFinished()
+{
+    qDebug() << Q_FUNC_INFO;
+
+    VideoProxy* proxy = static_cast<VideoProxy*>( sender() );
+
+    if ( m_files.count() > 0 )
+    {
+        proxy->loadMedia( m_files.takeAt( qrand() % m_files.count() ) );
     }
 }
 
@@ -101,7 +132,8 @@ WallWindow::layoutItems( bool touchZValue )
             r++;
         }
 
-        QRect finRect( ( width() / columns ) * ( c-1 ), ( height() / rows ) * ( r-1 ), ( width() / columns ), ( height() / rows ) );
+        QRect finRect( ( width() / columns ) * ( c-1 ), ( height() / rows ) * ( r-1 ),
+                       ( width() / columns ),           ( height() / rows ) );
         proxy->animatedResize( finRect );
 
         if ( touchZValue )
