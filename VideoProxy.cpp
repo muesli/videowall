@@ -80,7 +80,10 @@ VideoProxy::mouseReleaseEvent( QGraphicsSceneMouseEvent* event )
 {
     QGraphicsProxyWidget::mouseReleaseEvent( event );
 
-    emit requestFocus();
+    if ( event->button() == Qt::RightButton )
+        emit rightClicked();
+    else
+        emit requestFocus();
 }
 
 

@@ -33,6 +33,8 @@ signals:
     void rewind();
     void videoFinished();
 
+    void rightClicked();
+
 protected:
     void hoverEnterEvent( QGraphicsSceneHoverEvent* event );
     void hoverLeaveEvent( QGraphicsSceneHoverEvent* event );
